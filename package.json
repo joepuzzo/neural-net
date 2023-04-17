@@ -7,6 +7,7 @@
   "scripts": {
     "mnist": "node runnable/get-mnist",
     "images": "node runnable/output-images",
+    "train": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

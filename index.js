@@ -38,11 +38,31 @@ function createTargetArray(label) {
 }
 
 const numInputNodes = 28 * 28;
-const numHiddenNodes = 100;
 const numOutputNodes = 10;
+
+let numHiddenNodes = 100;
+let numEpochs = 5;
 
 const args = process.argv.slice(2);
 const modelName = args[0] || "default";
+
+// parse command-line arguments
+for (let i = 1; i < args.length; i += 2) {
+  const arg = args[i];
+  const value = args[i + 1];
+
+  switch (arg) {
+    case "--hidden-nodes":
+      numHiddenNodes = parseInt(value);
+      break;
+    case "--epochs":
+      numEpochs = parseInt(value);
+      break;
+    default:
+      console.log(`Unknown argument: ${arg}`);
+      break;
+  }
+}
 
 let neuralNetwork;
 let shouldTrain = true;
@@ -53,6 +73,9 @@ if (fs.existsSync(`data/models/${modelName}.json`)) {
   neuralNetwork = NeuralNetwork.loadModel(modelName);
   shouldTrain = false;
 } else {
+  console.log(
+    `Training with ${numHiddenNodes} hidden nodes and ${numEpochs} epochs`
+  );
   console.log(`Creating a new model: ${modelName}`);
   neuralNetwork = new NeuralNetwork(
     numInputNodes,
@@ -64,7 +87,6 @@ if (fs.existsSync(`data/models/${modelName}.json`)) {
 // Only train if its a new model
 if (shouldTrain) {
   const numTrainingSamples = 60000;
-  const numEpochs = 5;
   const trainData = readMNISTData(
     "data/train-images-idx3-ubyte",
     "data/train-labels-idx1-ubyte",
