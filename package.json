@@ -1,0 +1,18 @@
+{
+  "name": "neural-net",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "mnist": "node runnable/get-mnist",
+    "images": "node runnable/output-images",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  }
+}
